@@ -1,24 +1,32 @@
 # 🚗 Accident Detection System for Smart City
 
-A **Zone-Level Real-Time Accident Detection System** designed to improve emergency response efficiency and road safety. This IoT-based solution integrates **GPS**, **mass-type sensors**, and **networked communication towers** (similar to Jio/BSNL) to detect vehicle accidents, provide driver assistance, and transmit critical alerts to nearby zone headquarters.
+A **Zone-Level Real-Time Accident Detection System** designed to improve road safety and emergency response in smart cities. This IoT-based project uses sensors, GPS, wireless communication, and simulated telecom towers to detect accidents, alert zone headquarters, and assist emergency response teams with real-time information.
 
 ---
 
 ## 🔍 Project Overview
 
-This system is designed for use in smart cities where vehicle safety, real-time accident reporting, and faster emergency services are crucial.
+This system detects vehicle collisions, provides a grace period for drivers to cancel false alerts, and sends detailed emergency data to the zone headquarters if necessary. Upon confirmation from HQ, the system provides ambulance ETA and distance back to the vehicle using display or audio.
+
+---
 
 ### ✅ Key Features
 
 - **Accident Detection:** Uses a mass-type sensor to detect collision impact.
 - **Smart Delay Mechanism:** 
   - A 1-minute timer starts after an accident.
-  - Voice alert prompts the driver.
-  - If the driver is conscious, they can cancel the alert using a stop button.
+  - A voice alert prompts the driver.
+  - The driver can cancel the alert using a stop button if they are conscious.
 - **Automatic Alert System:**
-  - If not cancelled, alert is sent via network (tower-based or GPS).
-  - Zone HQ receives detailed accident data.
-- **Fallback Mechanism:** If GPS fails, the system uses tower ID (Cell ID) for location identification.
+  - If not cancelled, an alert is sent via the simulated tower (nRF24L01) network.
+  - The alert reaches the zone HQ with detailed information.
+- **Ambulance Distance & ETA Display:**
+  - Once the HQ accepts the alert, it sends ambulance dispatch data back to the vehicle.
+  - **Ambulance Distance** and **Estimated Time of Arrival (ETA)** are:
+    - **Displayed** on an LCD or serial monitor.
+    - Optionally **announced** via voice/audio module.
+- **Fallback Location:** If GPS fails, Cell ID (Tower ID) is used to approximate location.
+- **Voice Feedback:** Audio instructions and alerts help ensure clarity in emergency situations.
 
 ---
 
@@ -28,45 +36,63 @@ This system is designed for use in smart cities where vehicle safety, real-time 
 - **Wireless Communication:** nRF24L01 Module  
 - **Location Tracking:** GPS Module  
 - **Sensors:** Mass-Type Collision Sensor  
-- **Voice Feedback:** Voice alert system (buzzer + audio module)  
-- **Button Inputs:** Stop button & condition check logic  
-- **Networking:** Simulated tower network (like Jio/BSNL)
+- **Display:** 16x2 LCD / Serial Monitor  
+- **Audio Module:** DFPlayer Mini / Buzzer with pre-recorded voice  
+- **Button Inputs:** Stop button for driver response  
+- **Network Simulation:** Tower units using RF modules
 
 ---
 
 ## 📦 System Architecture
 
-1. **Vehicle Unit:**
-   - Mass sensor detects impact.
-   - Starts timer and gives voice alert.
-   - Sends data if not cancelled.
+### 1. Vehicle Unit
 
-2. **Zone Tower:**
-   - Receives data from vehicle.
-   - Forwards alert to zone headquarters.
+- Monitors vehicle for collision impact using a mass sensor.
+- On detection:
+  - Starts a 1-minute countdown.
+  - Plays voice alert to notify driver.
+  - Driver can cancel with a button.
+- If not cancelled:
+  - Sends accident alert to Zone Tower.
+  - Waits for HQ confirmation.
+- After HQ accepts alert:
+  - Displays/announces ambulance **distance** and **ETA**.
 
-3. **Zone Headquarters:**
-   - Displays vehicle and driver details.
-   - Locates accident via GPS or tower ID.
+### 2. Zone Tower
+
+- Receives data from Vehicle Unit.
+- Transmits it to Zone Headquarters.
+- Sends ambulance details back to the vehicle.
+
+### 3. Zone Headquarters
+
+- Displays all incoming alert details.
+- Locates accident via GPS or Cell ID.
+- Dispatches ambulance and calculates ETA.
+- Sends ETA info back to vehicle.
 
 ---
 
 ## 🧾 Alert Message Details
 
-Sent message includes:
+The alert message includes:
 
 - Vehicle Owner Name  
 - Driver Name  
 - Driver Age & Blood Group  
-- Contact Number  
-- Vehicle Info  
+- Phone Number  
+- Vehicle Info (Number, Type, etc.)  
 - Home Address  
-- Current Location (GPS or Cell ID)  
+- Current Location (GPS or Tower ID)  
 
 ---
 
-## 📸 Demo & Images
+## 📸 Demo & Media
 
-> _(Add images/videos/screenshots of your project here to show working prototypes, circuit designs, or UI if available.)_
+> _(Add circuit images, UI screenshots, working videos or GIFs here)_  
+> - [ ] Circuit Diagram  
+> - [ ] Working Demo Video  
+> - [ ] LCD Display Example  
+> - [ ] Audio Output Demo  
 
 ---

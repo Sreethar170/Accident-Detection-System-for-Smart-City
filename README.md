@@ -86,13 +86,3 @@ The alert message includes:
 - Current Location (GPS or Tower ID)  
 
 ---
-
-## 📸 Demo & Media
-
-> _(Add circuit images, UI screenshots, working videos or GIFs here)_  
-> - [ ] Circuit Diagram  
-> - [ ] Working Demo Video  
-> - [ ] LCD Display Example  
-> - [ ] Audio Output Demo  
-
----
